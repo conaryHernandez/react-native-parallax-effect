@@ -1,4 +1,3 @@
-import { Stack } from 'expo-router';
 import {
 	Dimensions,
 	Image,
@@ -23,12 +22,6 @@ const Page = () => {
 	const scrollRef = useAnimatedRef<ScrollView>();
 	const scrollOffset = useScrollViewOffset(scrollRef);
 
-	const headerAnimatedStyle = useAnimatedStyle(() => {
-		return {
-			opacity: interpolate(scrollOffset.value, [0, IMG_HEIGHT / 1.5], [0, 1]),
-		};
-	});
-
 	const imageAnimatedStyle = useAnimatedStyle(() => {
 		return {
 			transform: [
@@ -52,16 +45,6 @@ const Page = () => {
 
 	return (
 		<View style={styles.container}>
-			{/* expo router Stack.Screen to make header transparent */}
-			<Stack.Screen
-				options={{
-					headerTransparent: true,
-					headerLeft: () => <Text>Back</Text>,
-					headerBackground: () => (
-						<Animated.View style={[styles.header, headerAnimatedStyle]} />
-					),
-				}}
-			/>
 			<AnimatedScrollView ref={scrollRef} scrollEventThrottle={16}>
 				<Animated.Image
 					source={{
@@ -219,5 +202,19 @@ const styles = StyleSheet.create({
 		fontWeight: '600',
 		marginBottom: 12,
 		color: '#2c3e50',
+	},
+	finalSection: {
+		marginTop: 50,
+		padding: 20,
+		backgroundColor: '#ecf0f1',
+		borderRadius: 12,
+		alignItems: 'center',
+	},
+	finalText: {
+		fontSize: 16,
+		textAlign: 'center',
+		color: '#7f8c8d',
+		fontStyle: 'italic',
+		lineHeight: 24,
 	},
 });
